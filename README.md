@@ -1,102 +1,182 @@
 # 🛠️ Sanosco
 
-**Sanosco** is an application developed for the **Sanosco company**, a leader in trading various building tools and construction materials. This platform showcases the company’s inventory, allowing users to browse, order, and manage products effortlessly. Whether you’re a contractor, builder, or DIY enthusiast, Sanosco makes it easy to find and purchase the tools you need.
+**Sanosco** is a RESTful API backend application developed for the **Sanosco company**, a leader in trading various building tools and construction materials. This platform provides comprehensive APIs for managing inventory, orders, and user interactions, allowing customers to browse, order, and manage products effortlessly.
 
 ## 📝 Description
 
-Sanosco provides a user-friendly interface where customers can:
+Sanosco provides a robust backend API that supports:
 
-- **Browse items**: Explore a wide range of building tools and materials.
-- **Order products**: Place orders directly through the app with secure online payment.
-- **Track orders**: View order history and track the status of current orders.
-- **Receive updates**: Get notified about new arrivals, sales, and promotions.
+- **Product Management**: Complete CRUD operations for items, categories, brands, collections, and advertisements
+- **Order Processing**: Full order lifecycle management with order tracking and status updates
+- **User Management**: Dual-role system supporting both regular users and managers with role-based access control
+- **Shopping Cart**: Cart management with item addition, modification, and checkout functionality
+- **Notifications**: Real-time push notifications via Firebase Cloud Messaging
+- **Ratings & Reviews**: Product rating and review system
+- **File Uploads**: Image upload support for products, brands, categories, and advertisements
+- **Analytics**: Chart and reporting endpoints for business insights
 
 ## 🏷️ Badges
 
-Add relevant badges to convey project metadata, such as:
-
-- **Build Status**: ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-- **License**: ![License](https://img.shields.io/badge/license-MIT-blue)
-- **Version**: ![Version](https://img.shields.io/badge/version-1.0.0-yellow)
-
-## 🖼️ Visuals
-
-To give users a better understanding of Sanosco's features, consider including:
-
-- **Screenshots**: Show different sections of the app like the product catalog, shopping cart, and order tracking.
-- **Demo Video**: Provide a walkthrough video demonstrating how to browse items, place an order, and track deliveries.
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+![License](https://img.shields.io/badge/license-ISC-blue)
+![Version](https://img.shields.io/badge/version-1.0.0-yellow)
+![Node.js](https://img.shields.io/badge/node.js-v18+-green)
+![Express](https://img.shields.io/badge/express-v4.18+-green)
 
 ## 🚀 Getting Started
 
-To get started with Sanosco, follow these steps:
+### Prerequisites
+
+- Node.js (v14 or higher)
+- MySQL (v5.7 or higher)
+- npm or yarn package manager
+
+### Installation
 
 1. **Clone the repository:**
 
    ```sh
    git clone https://github.com/haydarB11/Sanosco.git
    cd Sanosco
-   composer install
-   cp .env.example .env
+```
 
-   update .env
-   DB_CONNECTION=mysql
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=sanosco_db
-    DB_USERNAME=your_db_username
-    DB_PASSWORD=your_db_password
+2. **Install dependencies:**
 
-    generate application key
-    php artisan key:generate
+```sh
+npm install
+```
 
-    run the migrations
-    php artisan migrate
+3. **Configure environment variables:**
 
-    deploying server
-    php artisan serve
+Create a `.env` file in the root directory with the following variables:
 
-    http://localhost:8000
+```env
+PORT=3070
+USER_NAME=your_db_username
+PASSWORD=your_db_password
+DB_NAME=sanosco_db
+DBHOST=127.0.0.1
+JWT_SECRET=your_jwt_secret_key
+FIREBASE_ADMIN_SDK_PATH=./sansco-b9f2b-firebase-adminsdk-9zchg-5ced75b282.json
+TWILIO_ACCOUNT_SID=your_twilio_account_sid
+TWILIO_AUTH_TOKEN=your_twilio_auth_token
+```
 
-📦 Features
+4. **Set up the database:**
 
-    Comprehensive Catalog: Access a wide range of building tools and materials.
-    Secure Online Payment: Pay for your orders directly through the app.
-    Order Tracking: Monitor the status of your orders in real-time.
-    Notifications: Stay updated with the latest deals and product releases.
+Create a MySQL database and update the connection details in your `.env` file. The application uses Sequelize ORM for database management.
 
-🛠️ Technologies Used
+5. **Run database migrations:**
 
-    Backend: Laravel
-    Database: MySQL
-    Frontend: Blade templating engine (or specify the frontend framework if used)
-    Payment Gateway: (Specify the payment gateway used, e.g., Stripe)
+```sh
+npx sequelize-cli db:migrate
+```
 
-🧑‍💻 Contributing
+6. **Start the server:**
+
+```sh
+npm start
+```
+
+The server will start on `http://localhost:3070` (or the port specified in your `.env` file).
+
+## 📦 Features
+
+- **RESTful API Architecture**: Clean, well-structured API endpoints following REST principles
+- **Role-Based Access Control**: Separate endpoints for managers and users with JWT authentication
+- **File Upload System**: Multer-based image upload for products, brands, categories, and advertisements
+- **Push Notifications**: Firebase Cloud Messaging integration for real-time notifications
+- **SMS Integration**: Twilio integration for OTP verification and notifications
+- **Excel Export**: ExcelJS integration for data export functionality
+- **Scheduled Tasks**: Node-cron integration for automated background jobs
+- **Comprehensive Error Handling**: Structured error responses with appropriate HTTP status codes
+- **CORS Support**: Cross-origin resource sharing enabled for frontend integration
+
+## 🛠️ Technologies Used
+
+- **Backend Framework**: Node.js with Express.js
+- **Database**: MySQL with Sequelize ORM
+- **Authentication**: JSON Web Tokens (JWT)
+- **File Upload**: Multer
+- **Push Notifications**: Firebase Admin SDK
+- **SMS/WhatsApp**: Twilio API
+- **Excel Processing**: ExcelJS
+- **Task Scheduling**: Node-cron
+- **HTTP Client**: Axios
+- **Additional Libraries**: Moment.js, Crypto, OpenCage API
+
+## 📁 Project Structure
+
+```
+Sanosco/
+├── app.js                 # Application entry point
+├── config/                # Configuration files
+├── controllers/           # Request handlers (Manager & User)
+├── models/                # Sequelize database models
+├── routes/                # API route definitions
+├── services/              # Business logic layer
+├── utils/                 # Utility functions (auth, upload, notifications)
+├── public/                 # Static file storage
+└── statics/               # Static JSON data
+```
+
+## 🔌 API Endpoints
+
+### Manager Endpoints
+- `/sansco/manager/charts` - Analytics and reporting
+- `/sansco/manager/advertisements` - Advertisement management
+- `/sansco/manager/offers` - Offer management
+- `/sansco/manager/categories` - Category management
+- `/sansco/manager/brands` - Brand management
+- `/sansco/manager/collections` - Collection management
+- `/sansco/manager/items` - Product/item management
+- `/sansco/manager/orders` - Order management
+- `/sansco/manager/static-contents` - Static content management
+- `/sansco/manager` - Manager authentication and profile
+
+### User Endpoints
+- `/sansco/user/static-contents` - Static content retrieval
+- `/sansco/user/notifications` - User notifications
+- `/sansco/user/categories` - Browse categories
+- `/sansco/user/favorites` - Favorite items management
+- `/sansco/user/brands` - Browse brands
+- `/sansco/user/collections` - Browse collections
+- `/sansco/user/items` - Browse and search items
+- `/sansco/user/advertisements` - View advertisements
+- `/sansco/user/carts` - Shopping cart management
+- `/sansco/user/orders` - Order placement and tracking
+- `/sansco/user/ratings` - Product ratings and reviews
+- `/sansco/user` - User authentication and profile
+
+## 🧑‍💻 Contributing
 
 We welcome contributions from the community! To contribute:
 
-    Fork the repository.
-    Create a new branch (git checkout -b feature-branch).
-    Commit your changes (git commit -m 'Add some feature').
-    Push to the branch (git push origin feature-branch).
-    Open a pull request.
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature-branch`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature-branch`)
+5. Open a pull request
 
-📝 License
+## 📝 License
 
-    This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the ISC License.
 
-📞 Contact
+## 📞 Contact
 
     If you have any questions or feedback, feel free to reach out:
 
-    👤 Name: Haydar Baddour
-    ✉️ Email: haydar.baddour.11@gmail.com
-    🐙 GitHub: haydarB11
+- **Name**: Haydar Baddour
+- **Email**: haydar.baddour.11@gmail.com
+- **GitHub**: [haydarB11](https://github.com/haydarB11)
 
-🙏 Acknowledgements
+## 🙏 Acknowledgements
 
-    We would like to thank all contributors, developers, and community members who have helped shape this project. Special thanks to the following resources:
+Special thanks to the following technologies and resources that made this project possible:
 
-    Laravel
-    MySQL
-    Composer
+- Express.js
+- Sequelize
+- MySQL
+- Firebase
+- Twilio
+- Node.js Community
